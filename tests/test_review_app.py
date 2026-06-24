@@ -9,6 +9,30 @@ from backend.web.review_app import create_app
 
 
 class ReviewAppTests(unittest.TestCase):
+    def test_home_page_serves_review_ui(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            output_dir = root / "outputs"
+            output_dir.mkdir()
+            client = TestClient(create_app(output_dir=output_dir, review_path=root / "reviews.json", project_root=root))
+
+            response = client.get("/")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("AI 智能批阅机 OCR 验收", response.text)
+
+    def test_static_review_script_is_available(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            output_dir = root / "outputs"
+            output_dir.mkdir()
+            client = TestClient(create_app(output_dir=output_dir, review_path=root / "reviews.json", project_root=root))
+
+            response = client.get("/static/review.js")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("loadSamples", response.text)
+
     def test_api_samples_returns_review_data(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

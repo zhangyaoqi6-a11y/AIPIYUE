@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI 智能批阅机 OCR 验收</title>
+    <link rel="stylesheet" href="/static/review.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sample-pane">
+        <div class="pane-title">样本</div>
+        <div id="sampleList" class="sample-list"></div>
+      </aside>
+
+      <section class="image-pane">
+        <header class="toolbar">
+          <div>
+            <div id="sampleTitle" class="sample-title">加载中</div>
+            <div id="sampleMeta" class="sample-meta"></div>
+          </div>
+          <div class="tool-actions">
+            <label class="toggle">
+              <input id="showBoxes" type="checkbox" checked />
+              <span>显示 OCR 框</span>
+            </label>
+            <label class="toggle">
+              <input id="showDebugImage" type="checkbox" />
+              <span>框图</span>
+            </label>
+          </div>
+        </header>
+        <div class="canvas-shell">
+          <div id="imageStage" class="image-stage">
+            <img id="pageImage" alt="试卷预处理图" />
+            <svg id="boxLayer" class="box-layer"></svg>
+          </div>
+        </div>
+      </section>
+
+      <aside class="result-pane">
+        <div class="pane-title">题目候选</div>
+        <div class="status-summary" id="statusSummary"></div>
+        <div id="candidateList" class="candidate-list"></div>
+      </aside>
+    </main>
+    <script src="/static/review.js"></script>
+  </body>
+</html>
