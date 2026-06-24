@@ -1,0 +1,11 @@
+.venv/
+node_modules/
+data/cache/
+data/uploads/
+data/outputs/
+参考资料/
+.env
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db

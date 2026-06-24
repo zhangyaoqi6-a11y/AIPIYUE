@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pillow
+opencv-python
+pymupdf
+numpy
+pandas
+openpyxl
+paddleocr
+paddlepaddle
