@@ -8,10 +8,38 @@ from backend.ocr.paddle_engine import PaddleOcrEngine
 
 
 class PaddleEngineTests(unittest.TestCase):
+    def test_constructor_disables_optional_preprocessing_models_by_default(self):
+        class FakePaddleOCR:
+            def __init__(self, **kwargs):
+                self.kwargs = kwargs
+
+        fake_module = types.SimpleNamespace(PaddleOCR=FakePaddleOCR)
+        previous_module = sys.modules.get("paddleocr")
+        sys.modules["paddleocr"] = fake_module
+        try:
+            engine = PaddleOcrEngine(lang="ch")
+        finally:
+            if previous_module is None:
+                sys.modules.pop("paddleocr", None)
+            else:
+                sys.modules["paddleocr"] = previous_module
+
+        self.assertEqual(
+            engine._ocr.kwargs,
+            {
+                "enable_mkldnn": False,
+                "lang": "ch",
+                "use_doc_orientation_classify": False,
+                "use_doc_unwarping": False,
+                "use_textline_orientation": False,
+            },
+        )
+
     def test_recognize_uses_predict_when_available(self):
         class FakePaddleOCR:
-            def __init__(self, lang):
+            def __init__(self, lang, **kwargs):
                 self.lang = lang
+                self.kwargs = kwargs
                 self.seen_path = None
 
             def predict(self, path):
@@ -37,8 +65,9 @@ class PaddleEngineTests(unittest.TestCase):
 
     def test_recognize_uses_ocr_fallback_when_predict_is_missing(self):
         class FakePaddleOCR:
-            def __init__(self, lang):
+            def __init__(self, lang, **kwargs):
                 self.lang = lang
+                self.kwargs = kwargs
                 self.calls = []
 
             def ocr(self, path, cls):

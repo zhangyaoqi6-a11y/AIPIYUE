@@ -1150,7 +1150,7 @@ Run:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Expected: PASS, `Ran 19 tests`.
+Expected: PASS, `Ran 20 tests`.
 
 - [ ] **Step 6: Commit**
 
@@ -1225,7 +1225,7 @@ Run:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Expected: PASS, `Ran 19 tests`.
+Expected: PASS, `Ran 20 tests`.
 
 - [ ] **Step 6: Verify Git status**
 
@@ -1263,7 +1263,7 @@ powershell -ExecutionPolicy Bypass -File scripts\verify-env.ps1
 Expected:
 
 - Environment imports still pass.
-- Unit tests pass with `Ran 19 tests`.
+- Unit tests pass with `Ran 20 tests`.
 - Real OCR command writes JSON and debug images for both reference images.
 - Stage record exists at `docs/阶段记录/第一阶段识别验证记录.md`.
 - `参考资料/` and `data/outputs/` remain ignored.
